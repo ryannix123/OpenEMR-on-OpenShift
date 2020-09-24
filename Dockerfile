@@ -1,7 +1,7 @@
 FROM docker.io/centos/php-73-centos7 as builder
 
-RUN dnf update -y
-RUN dnf install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
+RUN yum upgrade -y
+RUN yum install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
 RUN wget https://getcomposer.org/installer -O composer-installer.php
 RUN wget https://raw.githubusercontent.com/ryannix123/openemr-php-ini/master/php.ini
 RUN wget https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/autoconfig.sh https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/auto_configure.php
@@ -25,7 +25,7 @@ RUN composer global require phing/phing \
 RUN mv sites sites-seed
 
 FROM docker.io/centos/php-73-centos7
-RUN dnf install -y @php php php-mysqlnd php-soap php-gd httpd mod_ssl openssl && dnf clean all
+RUN yum install -y @php php php-mysqlnd php-soap php-gd httpd mod_ssl openssl && yum clean all
 COPY --from=builder /php.ini /etc/php.ini
 COPY --from=builder /openemr /var/www/localhost/htdocs/openemr
 
