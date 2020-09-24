@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8 as builder
+FROM registry.access.redhat.com/ubi8/php-73 as builder
 
 RUN dnf update -y
 RUN dnf install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
@@ -24,7 +24,7 @@ RUN composer global require phing/phing \
     && rm -fr node_modules
 RUN mv sites sites-seed
 
-FROM registry.access.redhat.com/ubi8
+FROM registry.access.redhat.com/ubi8/php-73
 RUN dnf install -y @php php php-mysqlnd php-soap php-gd httpd mod_ssl openssl && dnf clean all
 COPY --from=builder /php.ini /etc/php.ini
 COPY --from=builder /openemr /var/www/localhost/htdocs/openemr
