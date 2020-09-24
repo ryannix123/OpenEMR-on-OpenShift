@@ -4,7 +4,7 @@ RUN dnf update -y
 RUN dnf install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
 RUN wget https://getcomposer.org/installer -O composer-installer.php
 RUN wget https://raw.githubusercontent.com/ryannix123/openemr-php-ini/master/php.ini
-RUN wget https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/autoconfig.sh https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.3/auto_configure.php
+RUN wget https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/autoconfig.sh https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/auto_configure.php
 RUN php composer-installer.php --filename=composer --install-dir=/usr/local/bin
 
 
