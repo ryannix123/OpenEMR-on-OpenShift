@@ -1,6 +1,9 @@
-FROM registry.access.redhat.com/ubi8/php-73 as builder
+FROM registry.access.redhat.com/ubi8 as builder
 
 RUN dnf update -y
+RUN yum --disableplugin=subscription-manager -y module enable php:7.3 \
+  && yum --disableplugin=subscription-manager -y install httpd php \
+  && yum --disableplugin=subscription-manager clean all
 RUN dnf install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
 RUN wget https://getcomposer.org/installer -O composer-installer.php
 RUN wget https://raw.githubusercontent.com/ryannix123/openemr-php-ini/master/php.ini
@@ -24,7 +27,7 @@ RUN composer global require phing/phing \
     && rm -fr node_modules
 RUN mv sites sites-seed
 
-FROM registry.access.redhat.com/ubi8/php-73
+FROM registry.access.redhat.com/ubi8
 RUN dnf install -y @php php php-mysqlnd php-soap php-gd httpd mod_ssl openssl && dnf clean all
 COPY --from=builder /php.ini /etc/php.ini
 COPY --from=builder /openemr /var/www/localhost/htdocs/openemr
