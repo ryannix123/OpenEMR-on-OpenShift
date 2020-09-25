@@ -26,8 +26,8 @@ RUN composer global require phing/phing \
     && rm -fr node_modules
 RUN mv sites sites-seed
 
-FROM registry.access.redhat.com/ubi8 as builder
-RUN yum install -y @php php php-mysqlnd php-soap php-gd httpd mod_ssl openssl && yum clean all
+FROM registry.access.redhat.com/ubi8
+RUN dnf install -y @php php php-mysqlnd php-soap php-gd httpd mod_ssl openssl && dnf clean all
 COPY --from=builder /php.ini /etc/php.ini
 COPY --from=builder /openemr /var/www/localhost/htdocs/openemr
 
