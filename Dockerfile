@@ -3,6 +3,11 @@ RUN dnf update -y
 RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 RUN dnf module enable php:remi-7.3 -y
+RUN dnf -y install dnf-plugins-core
+RUN dnf config-manager --set-enabled remi-php73
+RUN dnf config-manager --set-enabled remi
+RUN dnf module install php:remi-7.3
+RUN dnf -y update
 RUN dnf install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
 RUN wget https://getcomposer.org/installer -O composer-installer.php
 RUN wget https://raw.githubusercontent.com/ryannix123/openemr-php-ini/master/php.ini
