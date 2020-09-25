@@ -4,7 +4,7 @@ RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
 RUN dnf install -y  https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 RUN dnf install -y yum-utils
 RUN dnf module reset php
-RUN dnf module install php:remi-7.3
+RUN dnf module install -y php:remi-7.3
 RUN dnf -y update
 RUN dnf install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
 RUN wget https://getcomposer.org/installer -O composer-installer.php
