@@ -1,8 +1,7 @@
 FROM registry.access.redhat.com/ubi8 as builder
 RUN dnf update -y
-RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-RUN dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
-RUN dnf module enable php:remi-7.3 -y
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+RUN yum -y install http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 RUN dnf -y install dnf-plugins-core
 RUN dnf config-manager --set-enabled remi-php73
 RUN dnf config-manager --set-enabled remi
