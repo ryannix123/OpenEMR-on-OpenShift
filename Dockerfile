@@ -3,9 +3,8 @@ RUN dnf update -y
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 RUN dnf install -y  https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 RUN dnf install -y yum-utils
-RUN dnf module install -y php:remi-7.3
 RUN dnf module reset -y php
-RUN dnf -y update
+RUN dnf module install -y php:remi-7.3
 RUN dnf install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
 RUN wget https://getcomposer.org/installer -O composer-installer.php
 RUN wget https://raw.githubusercontent.com/ryannix123/openemr-php-ini/master/php.ini
@@ -30,6 +29,11 @@ RUN composer global require phing/phing \
 RUN mv sites sites-seed
 
 FROM registry.access.redhat.com/ubi8
+RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+RUN dnf install -y  https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+RUN dnf install -y yum-utils
+RUN dnf module reset -y php
+RUN dnf module install -y php:remi-7.3
 RUN dnf install -y @php php php-mysqlnd php-soap php-gd httpd mod_ssl openssl && dnf clean all
 COPY --from=builder /php.ini /etc/php.ini
 COPY --from=builder /openemr /var/www/localhost/htdocs/openemr
