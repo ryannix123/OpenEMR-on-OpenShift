@@ -1,7 +1,8 @@
-FROM docker.io/centos/php-73-centos7 as builder
-
-RUN yum upgrade -y
-RUN yum install -y @php php-mysqlnd php-soap php-gd php-pecl-zip php-ldap wget git npm
+FROM registry.access.redhat.com/ubi8 as builder
+RUN dnf update -y
+RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+RUN dnf install -y https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+RUN dnf module enable php:remi-7.3 -y
 RUN wget https://getcomposer.org/installer -O composer-installer.php
 RUN wget https://raw.githubusercontent.com/ryannix123/openemr-php-ini/master/php.ini
 RUN wget https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/autoconfig.sh https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/auto_configure.php
@@ -24,7 +25,7 @@ RUN composer global require phing/phing \
     && rm -fr node_modules
 RUN mv sites sites-seed
 
-FROM docker.io/centos/php-73-centos7
+FROM registry.access.redhat.com/ubi8 as builder
 RUN yum install -y @php php php-mysqlnd php-soap php-gd httpd mod_ssl openssl && yum clean all
 COPY --from=builder /php.ini /etc/php.ini
 COPY --from=builder /openemr /var/www/localhost/htdocs/openemr
