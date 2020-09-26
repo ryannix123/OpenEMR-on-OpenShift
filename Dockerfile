@@ -11,8 +11,7 @@ RUN wget https://raw.githubusercontent.com/ryannix123/openemr-php-ini/master/php
 RUN wget https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/5.0.2/autoconfig.sh https://raw.githubusercontent.com/openemr/openemr-devops/master/docker/openemr/6.0.0/auto_configure.php
 RUN php composer-installer.php --filename=composer --install-dir=/usr/local/bin
 
-
-RUN git clone https://github.com/openemr/openemr.git --depth 1
+RUN git clone https://github.com/ryannix123/openemr.git --depth 1
 
 WORKDIR openemr
 RUN composer install --no-dev
