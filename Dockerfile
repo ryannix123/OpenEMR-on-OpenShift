@@ -49,6 +49,8 @@ ENV APACHE_LOG_DIR=/var/log/httpd
 RUN chmod 0777 /run/httpd
 RUN chmod 0770 /var/log/httpd
 RUN chown -R apache /var/www/localhost/htdocs/openemr/
+# Added to fix session problem
+chown -R apache /var/lib/php/session
 
 RUN sed -i 's/^Listen 80/Listen 8080/' /etc/httpd/conf/httpd.conf
 
