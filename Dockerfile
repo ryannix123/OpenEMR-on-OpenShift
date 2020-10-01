@@ -56,6 +56,4 @@ RUN sed -i 's/^Listen 80/Listen 8080/' /etc/httpd/conf/httpd.conf
 WORKDIR /var/www/localhost/htdocs/openemr/
 CMD exec /usr/sbin/httpd -D FOREGROUND
 
-
-
 EXPOSE 8080 8443
