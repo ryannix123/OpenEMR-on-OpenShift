@@ -1,3 +1,4 @@
+# Small change
 FROM registry.access.redhat.com/ubi8 as builder
 RUN dnf update -y
 RUN dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
